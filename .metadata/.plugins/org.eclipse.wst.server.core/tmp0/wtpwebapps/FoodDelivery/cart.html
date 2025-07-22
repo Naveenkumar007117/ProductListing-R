@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>My Cart - Food Delivery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="cart-container">
+    <h2>🛒 My Cart</h2>
+
+    <div id="cartTable">Loading your cart...</div>
+
+    <br>
+    <div style="text-align: center;">
+      <a href="index.html" class="btn update">← Continue Shopping</a>
+    </div>
+  </div>
+
+  <script>
+    function loadCart() {
+      fetch('get-cart')
+        .then(res => {
+          if (!res.ok) throw new Error("Not logged in");
+          return res.text();
+        })
+        .then(html => {
+          document.getElementById("cartTable").innerHTML = html;
+        })
+        .catch(err => {
+          document.getElementById("cartTable").innerHTML = `
+            <p style="text-align:center; color:red;">
+              ❌ You must <a href='login.html'>log in</a> to view your cart.
+            </p>`;
+        });
+    }
+
+    function updateCart(foodId, quantity) {
+      if (quantity < 1) {
+        alert("Quantity cannot be less than 1.");
+        loadCart();
+        return;
+      }
+
+      fetch('update-cart', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `foodId=${foodId}&quantity=${quantity}`
+      })
+      .then(res => {
+        if (res.ok) loadCart();
+        else alert("Error updating cart");
+      });
+    }
+
+    function removeFromCart(foodId) {
+      fetch('remove-cart', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `foodId=${foodId}`
+      })
+      .then(res => {
+        if (res.ok) loadCart();
+        else alert("Error removing item");
+      });
+    }
+
+    function placeOrder() {
+      fetch('order', { method: 'POST' })
+        .then(res => {
+          if (res.ok) {
+            alert("Order placed successfully!");
+            loadCart();
+          } else {
+            alert("Error placing order.");
+          }
+        });
+    }
+
+    window.onload = loadCart;
+  </script>
+</body>
+</html>

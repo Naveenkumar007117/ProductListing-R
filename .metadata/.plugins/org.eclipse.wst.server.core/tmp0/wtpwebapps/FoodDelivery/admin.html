@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel - Add Food Item</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="admin-container">
+    <h2>🛠️ Admin Panel: Add New Food Item</h2>
+
+    <form id="addFoodForm" action="add-food" method="post">
+      <label for="name">Food Name:</label><br />
+      <input type="text" id="name" name="name" required /><br />
+
+      <label for="price">Price (₹):</label><br />
+      <input type="number" id="price" name="price" step="0.01" min="0" required /><br />
+
+      <label for="category">Category:</label><br />
+      <select id="category" name="category" required>
+        <option value="veg">Veg</option>
+        <option value="non-veg">Non-Veg</option>
+      </select><br />
+
+      <label for="image">Image URL:</label><br />
+      <input type="text" id="image" name="image" placeholder="e.g. images/pizza.jpg" required /><br />
+
+      <button type="submit">Add Food</button>
+    </form>
+
+    <br />
+    <a href="index.html" class="btn">← Back to Home</a>
+    <a href="logout" class="btn">🚪 Logout</a>
+  </div>
+</body>
+</html>

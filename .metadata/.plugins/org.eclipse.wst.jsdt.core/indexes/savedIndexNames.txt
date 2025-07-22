@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Users\navee\Desktop\Food Delivery App\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2280855436.index
+1495591984.index
+176187036.index
+3480380959.index
+3418843612.index
+3097210802.index
